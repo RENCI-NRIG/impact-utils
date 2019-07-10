@@ -13,7 +13,7 @@ SAFE_RESULT_FIELD = "result"
 SAFE_MESSAGE_FIELD = "message"
 SAFE_SUCCESS = "succeed"
 
-def hashKey(keyName):
+def hash_key(keyName):
     """ create a safe-compatible hash string of a public key file."""
 
     try:
@@ -34,41 +34,32 @@ def hashKey(keyName):
         return encoded.decode('utf-8')
 
 
-def postRawIdSet(headUrl, principal):
+def post_to_safe(*, headUrl, endpoint, principal, listOfParams):
+    """ post a call to SAFE """
+    params = {"principal": principal, "methodParams": listOfParams}
+    resp = requests.post(headUrl + endpoint, json = params)
+    if resp.status_code != SAFE_HTTP_POST_SUCCESS:
+        raise SafeException(f"Unable to post due to error: {resp.status_code}")
+
+    json = resp.json()
+    if json[SAFE_RESULT_FIELD] != SAFE_SUCCESS:
+        raise SafeException(f"POST failed due to error: {json[SAFE_MESSAGE_FIELD]}")
+    return json[SAFE_MESSAGE_FIELD]
+
+def post_raw_id_set(*, headUrl, principal):
     """ post a raw ID set of the principal """
-    params = {"principal": principal, "methodParams": [principal]}
-    resp = requests.post(headUrl + 'postRawIdSet', json=params)
-    if resp.status_code != SAFE_HTTP_POST_SUCCESS:
-        raise SafeException(f"Unable to post id set due to error: {resp.status_code}")
+    return post_to_safe(headUrl=headUrl, endpoint='postRawIdSet', principal=principal,
+                      listOfParams=[principal])
 
-    json = resp.json()
-    if json[SAFE_RESULT_FIELD] != SAFE_SUCCESS:
-        raise SafeException(f"Failed to post id set due to error: {json[SAFE_MESSAGE_FIELD]}")
-    return json[SAFE_MESSAGE_FIELD]
-
-def postPerFlowRule(headUrl, principal, flowId):
+def post_per_flow_rule(*, headUrl, principal, flowId):
     """ post a single per-workflow rule """
-    params = {"principal": principal, "methodParams": [flowId]}
-    resp = requests.post(headUrl + 'postPerFlowRule', json=params)
-    if resp.status_code != SAFE_HTTP_POST_SUCCESS:
-        raise SafeException(f"Unable to post workflow policy due to error: {resp.status_code}")
+    return post_to_safe(headUrl=headUrl, endpoint='postPerFlowRule', principal=principal,
+                      listOfParams=[flowId])
 
-    json = resp.json()
-    if json[SAFE_RESULT_FIELD] != SAFE_SUCCESS:
-        raise SafeException(f"Failed to post workflow set due to error: {json[SAFE_MESSAGE_FIELD]}")
-    return json[SAFE_MESSAGE_FIELD]
-
-def postTwoFlowDataOwnerPolicy(headUrl, principal, dataset, wf1, wf2):
+def post_two_flow_data_owner_policy(*, headUrl, principal, dataset, wf1, wf2):
     """ post a ruleset for two workflows associated with the dataset """
-    params = {"principal": principal, "methodParams": [dataset, wf1, wf2]}
-    resp = requests.post(headUrl + 'postTwoFlowDataOwnerPolicy', json=params)
-    if resp.status_code != SAFE_HTTP_POST_SUCCESS:
-        raise SafeException(f"Unable to post dataset policy due to error: {resp.status_code}")
-
-    json = resp.json()
-    if json[SAFE_RESULT_FIELD] != SAFE_SUCCESS:
-        raise SafeException(f"Failed to post dataset set due to error: {json[SAFE_MESSAGE_FIELD]}")
-    return json[SAFE_MESSAGE_FIELD]
+    return post_to_safe(headUrl=headUrl, endpoint='postTwoFlowDataOwnerPolicy', principal=principal,
+                      listOfParams=[dataset, wf1, wf2])
 
 class SafeException(Exception):
     """ SAFE-related exception. Behaves like Exception """
