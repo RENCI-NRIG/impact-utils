@@ -45,7 +45,7 @@ SAFE_URL = 'http://localhost:7777/'
 
 ## Tweaking
 
-The layout is partially hard-wired in the code (see the last line of app_main.py):
+The layout is partially hard-wired in the code (see the last line of __main__.py):
 ```
 if __name__ == "__main__":   pyforms.start_app(AppGUI, geometry=[100, 100, 500, 700])
 ```
