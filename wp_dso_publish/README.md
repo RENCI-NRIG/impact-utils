@@ -13,9 +13,10 @@ Requires Python3 and pip3. Be sure to load the required dependencies:
 $ pip install -r requirements.txt
 ```
 
-Running it as as simple as
+Running it as as simple as, starting from the directory the contains `wp_dso_publish/`
 ```bash
-$ python app-main.py
+$ export PYTHONPATH=wp_dso_publish/:$PYTHONPATH
+$ python -m wp_dso_publish
 ```
 
 The GUI presents two tabs - one with identifiers for the two workflows and the dataset, one with SAFE parameters.

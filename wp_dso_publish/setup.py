@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='wp-dso-publish',
+    name='wp_dso_publish',
     version='0.1',
     packages=[''],
     url='',
