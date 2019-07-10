@@ -39,7 +39,7 @@ by hand if needed. The following parameters (as strings) need to be defined (exa
 RESEARCH_APPROVAL_ID = '53f8e808-5d91-4eff-8ecf-ab7d2dcda4d3'
 INFRASTRUCTURE_APPROVAL_ID = 'cf6d4ef7-d07a-4a7f-8ff5-1ec925f8df9b'
 DATASET_ID = '05b88841-d14b-471d-8e0f-5da29bf8da68'
-PUBLIC_KEY_PATH = '/path/to/public/key/key.pub
+PUBLIC_KEY_PATH = '/path/to/public/key/key.pub'
 SAFE_URL = 'http://localhost:7777/'
 ```
 
