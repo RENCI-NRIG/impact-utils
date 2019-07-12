@@ -11,7 +11,7 @@ This is consistent with SAFE ImPACT
 Requires Python3 and pip3. Install the package into a virtualenvironment (it *should* pull in all the dependencies):
 ```bash
 $ mkvirtualenv wpdso
-$ pip install wp-dso-publish
+(wpdso) $ pip install wp-dso-publish
 ```
 
 Running it as as simple as (it should be on the PATH by now)
