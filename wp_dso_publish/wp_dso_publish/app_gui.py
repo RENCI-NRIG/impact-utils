@@ -16,9 +16,10 @@ from pyforms.controls import ControlFile
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PyQt5 import QtWidgets
 
-import wp_dso_publish.safe_helper
+from wp_dso_publish import safe_helper
 from os import path
 import sys
+import pkg_resources
 
 """
 Displays appropriate forms for a Data Provider/DataSet Owner to issue GUIDs
@@ -30,7 +31,7 @@ associated SAFE server.
 class AppGUI(BaseWidget):
 
     _safe_default_url = 'http://localhost:7777/'
-    _saved_settings = 'wp_dso_publish/saved-settings.py'
+    _saved_settings = pkg_resources.resource_filename(__name__, 'saved-settings.py')
     _saved_settings_module = 'wp_dso_publish.saved-settings'
 
     def __init__(self):
@@ -155,8 +156,8 @@ class AppGUI(BaseWidget):
 
         # hash the pulic key of the principal
         try:
-            principal = wp_dso_publish.safe_helper.hash_key(self._safePubKeyPath.value)
-        except wp_dso_publish.safe_helper.SafeException as e:
+            principal = safe_helper.hash_key(self._safePubKeyPath.value)
+        except safe_helper.SafeException as e:
             AppGUI._warningWindow(e.__str__(), "Please use the 'B' tab to fill the parameters")
             return
 
@@ -174,12 +175,12 @@ class AppGUI(BaseWidget):
         dataset_id = ":".join([principal, self._ds.value])
 
         try:
-            res1 = wp_dso_publish.safe_helper.post_raw_id_set(headUrl=self._safeURL.value, principal=principal)
-            res2 = wp_dso_publish.safe_helper.post_per_flow_rule(headUrl=self._safeURL.value, principal=principal, flowId=wf1_id)
-            res3 = wp_dso_publish.safe_helper.post_per_flow_rule(headUrl=self._safeURL.value, principal=principal, flowId=wf2_id)
-            res4 = wp_dso_publish.safe_helper.post_two_flow_data_owner_policy(headUrl=self._safeURL.value, principal=principal,
+            res1 = safe_helper.post_raw_id_set(headUrl=self._safeURL.value, principal=principal)
+            res2 = safe_helper.post_per_flow_rule(headUrl=self._safeURL.value, principal=principal, flowId=wf1_id)
+            res3 = safe_helper.post_per_flow_rule(headUrl=self._safeURL.value, principal=principal, flowId=wf2_id)
+            res4 = safe_helper.post_two_flow_data_owner_policy(headUrl=self._safeURL.value, principal=principal,
                                                           dataset=dataset_id, wf1=wf1_id, wf2=wf2_id)
-        except wp_dso_publish.safe_helper.SafeException as e:
+        except safe_helper.SafeException as e:
             AppGUI._warningWindow(e.__str__(), f"Unable to post to SAFE server {self._safeURL.value}")
 
         # output the results needed by the user for Notary Service
