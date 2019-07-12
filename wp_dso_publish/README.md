@@ -16,7 +16,7 @@ $ mkvirtualenv wpdso
 
 Running it as as simple as (it should be on the PATH by now)
 ```bash
-$ wp-dso-publish.py
+(wpdso) $ wp-dso-publish.py
 ```
 
 The GUI presents two tabs - one with identifiers for the two workflows and the dataset, one with SAFE parameters.
