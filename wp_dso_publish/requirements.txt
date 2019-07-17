@@ -1,2 +1,3 @@
-pyforms==4.0.3
+PyForms-GUI==4.902
 pycryptodome==3.8.2
+requests==2.22.0

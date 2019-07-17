@@ -8,15 +8,15 @@ that both are satisfied prior to granting access (via [Presidio](https://github.
 This is consistent with SAFE ImPACT 
 [MVP example](https://github.com/RENCI-NRIG/impact-docker-images/tree/master/safe-server/1.0.1).
 
-Requires Python3 and pip3. Be sure to load the required dependencies:
+Requires Python3 and pip3. Install the package into a virtualenvironment (it *should* pull in all the dependencies):
 ```bash
-$ pip install -r requirements.txt
+$ mkvirtualenv wpdso
+(wpdso) $ pip install wp-dso-publish
 ```
 
-Running it as as simple as, starting from the directory the contains `wp_dso_publish/`
+Running it as as simple as (it should be on the PATH by now)
 ```bash
-$ export PYTHONPATH=wp_dso_publish/:$PYTHONPATH
-$ python -m wp_dso_publish
+(wpdso) $ wp-dso-publish.py
 ```
 
 The GUI presents two tabs - one with identifiers for the two workflows and the dataset, one with SAFE parameters.
@@ -51,4 +51,4 @@ if __name__ == "__main__":   pyforms.start_app(AppGUI, geometry=[100, 100, 500, 
 ```
 which specifies the geometry of the main window. Couldn't find a more elegant way to do it.
 
-The rest of the layout is contained in [style.css](style.css) file in the same directory. 
+The rest of the layout is contained in [style.css](wp_dso_publish/style.css) file in the same directory. 
