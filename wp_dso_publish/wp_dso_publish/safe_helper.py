@@ -38,8 +38,9 @@ def hash_key(keyName):
 def post_to_safe(*, headUrl, endpoint, principal, listOfParams):
     """ post a call to SAFE """
     params = {"principal": principal, "methodParams": listOfParams}
+    #print(f"Parameters for {headUrl}{endpoint} are {params}")
     try:
-        resp = requests.post(headUrl + endpoint, json = params)
+        resp = requests.post(headUrl + endpoint, json=params)
     except Exception as e:
         raise SafeException(f"Connection error")
 

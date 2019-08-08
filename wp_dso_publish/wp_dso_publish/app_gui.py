@@ -186,7 +186,7 @@ class AppGUI(BaseWidget):
             AppGUI._warningWindow(e.__str__(), f"Unable to post to SAFE server {self._safeURL.value}")
             self._results.value = "There was an error communicating with SAFE server"
 
-        if self._results.value is None:
+        if self._results.value is None or self._results.value == "":
             # output the results needed by the user for Notary Service
             self._results.value = f"All policies have been posted to the SAFE server. \n\
 Please take note of the following identifiers for the Notary Service: \n\n\
