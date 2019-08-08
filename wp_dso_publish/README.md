@@ -52,3 +52,16 @@ if __name__ == "__main__":   pyforms.start_app(AppGUI, geometry=[100, 100, 500, 
 which specifies the geometry of the main window. Couldn't find a more elegant way to do it.
 
 The rest of the layout is contained in [style.css](wp_dso_publish/style.css) file in the same directory. 
+
+## Building and posting to PyPi
+
+Make sure you have twine installed. Edit `setup.py` to up the version number, then (making
+sure you are in the right Python virtual environment) 
+
+```bash
+$ rm -rf dist/ build/ wp_dso_publish.egg-info/; ./setup.py sdist; ./setup.py bdist_wheel --universal
+$ twine upload dist/*
+```
+
+Follow the install steps at the top, however remember there is a delay between pushing
+and the artifact being available (you can force the install version with `pip install wp-dso-publish==<version>`.
