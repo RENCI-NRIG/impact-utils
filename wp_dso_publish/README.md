@@ -63,5 +63,7 @@ $ rm -rf dist/ build/ wp_dso_publish.egg-info/; ./setup.py sdist; ./setup.py bdi
 $ twine upload dist/*
 ```
 
+The proper PyPi location is https://pypi.org/project/wp-dso-publish/.
+
 Follow the install steps at the top, however remember there is a delay between pushing
 and the artifact being available (you can force the install version with `pip install wp-dso-publish==<version>`.
