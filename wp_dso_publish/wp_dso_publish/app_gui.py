@@ -174,6 +174,8 @@ class AppGUI(BaseWidget):
         wf2_id = ":".join([principal, self._wp2.value])
         dataset_id = ":".join([principal, self._ds.value])
 
+        res1 = res2 = res3 = res4 = None
+
         try:
             res1 = safe_helper.post_raw_id_set(headUrl=self._safeURL.value, principal=principal)
             res2 = safe_helper.post_per_flow_rule(headUrl=self._safeURL.value, principal=principal, flowId=wf1_id)
@@ -182,9 +184,11 @@ class AppGUI(BaseWidget):
                                                           dataset=dataset_id, wf1=wf1_id, wf2=wf2_id)
         except safe_helper.SafeException as e:
             AppGUI._warningWindow(e.__str__(), f"Unable to post to SAFE server {self._safeURL.value}")
+            self._results.value = "There was an error communicating with SAFE server"
 
-        # output the results needed by the user for Notary Service
-        self._results.value = f"All policies have been posted to the SAFE server. \n\
+        if self._results.value is None or self._results.value == "":
+            # output the results needed by the user for Notary Service
+            self._results.value = f"All policies have been posted to the SAFE server. \n\
 Please take note of the following identifiers for the Notary Service: \n\n\
 Research Approval Workflow ID: {wf1_id}\n\n\
 Infrastructure Approval Workflow ID: {wf2_id}\n\n\

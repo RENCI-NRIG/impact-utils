@@ -21,8 +21,14 @@ Running it as as simple as (it should be on the PATH by now)
 
 The GUI presents two tabs - one with identifiers for the two workflows and the dataset, one with SAFE parameters.
 Identifiers can either be filled in or auto-generated (GUIDs) using the 'Generate button'. SAFE server base
-URL is automatically filled in. SAFE *public* key for the dataset owner principal must also be specified
+URL is automatically filled in. SAFE *public* key name for the dataset owner principal must also be specified
 (typically has the .pub extension) via file browser. 
+
+*Warning:* the public key pointed to must be one of the keys accessible to the SAFE server you are communicating
+with (i.e. in its -kd key directory), otherwise you will get a `Selfie` error as follows:
+```bash
+Error: POST failed due to error: Query failed with msg: safe.safelog.UnSafeException: cannot sign since principal (Selfie) not defined Set(StrLit(Self))
+```
 
 Once all parameters are filled in, press the 'Push Combined Policy to SAFE' button and inspect the outcome. 
 
@@ -52,3 +58,18 @@ if __name__ == "__main__":   pyforms.start_app(AppGUI, geometry=[100, 100, 500, 
 which specifies the geometry of the main window. Couldn't find a more elegant way to do it.
 
 The rest of the layout is contained in [style.css](wp_dso_publish/style.css) file in the same directory. 
+
+## Building and posting to PyPi
+
+Make sure you have twine installed. Edit `setup.py` to up the version number, then (making
+sure you are in the right Python virtual environment) 
+
+```bash
+$ rm -rf dist/ build/ wp_dso_publish.egg-info/; ./setup.py sdist; ./setup.py bdist_wheel --universal
+$ twine upload dist/*
+```
+
+The proper PyPi location is https://pypi.org/project/wp-dso-publish/.
+
+Follow the install steps at the top, however remember there is a delay between pushing
+and the artifact being available (you can force the install version with `pip install wp-dso-publish==<version>`.

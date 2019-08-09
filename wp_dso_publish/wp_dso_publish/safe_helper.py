@@ -5,6 +5,7 @@ __maintainer__ = "Ilya Baldin"
 import hashlib, base64
 from Crypto.PublicKey import RSA
 import requests
+import urllib3.exceptions
 
 """set of helper functions to interface with a SAFE server"""
 
@@ -37,7 +38,12 @@ def hash_key(keyName):
 def post_to_safe(*, headUrl, endpoint, principal, listOfParams):
     """ post a call to SAFE """
     params = {"principal": principal, "methodParams": listOfParams}
-    resp = requests.post(headUrl + endpoint, json = params)
+    #print(f"Parameters for {headUrl}{endpoint} are {params}")
+    try:
+        resp = requests.post(headUrl + endpoint, json=params)
+    except Exception as e:
+        raise SafeException(f"Connection error")
+
     if resp.status_code != SAFE_HTTP_POST_SUCCESS:
         raise SafeException(f"Unable to post due to error: {resp.status_code}")
 
