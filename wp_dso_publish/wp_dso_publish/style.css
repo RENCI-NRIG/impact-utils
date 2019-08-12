@@ -1,7 +1,7 @@
 QMainWindow{
     background-color: gray;
-	height: 1000px;
-	width: 1000px;
+    height: 1000px;
+    width: 1000px;
 }
 
 QLabel{
@@ -14,11 +14,13 @@ QLineEdit{
     border: 1px solid #CCC;
     height: 30px;
     padding-left: 10px;
+    background: black;
+    color: white;
 }
 
 QPushButton{
     background: #3498db;
-    color: #ffffff;
+    color: white;
     padding: 10px 20px 10px 20px;
     border-radius: 6px;
     max-width: 200px;
@@ -29,12 +31,13 @@ QPushButton:hover {
 }
 
 QPlainTextEdit {
-	max-width: 650px;
-	min-width: 650px;
-	max-height: 350px;
-	min-height: 350px;
-	border: 1px solid #CCC;
+    max-width: 650px;
+    min-width: 650px;
+    max-height: 350px;
+    min-height: 350px;
+    border: 1px solid #CCC;
     background: black;
+    color: white;
 }
 
 /*Use the # and the name of the variable to access to a specific the Control*/
