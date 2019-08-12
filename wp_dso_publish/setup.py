@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='wp_dso_publish',
-    version='0.26',
+    version='0.27',
     packages=[
         'wp_dso_publish'
     ],
