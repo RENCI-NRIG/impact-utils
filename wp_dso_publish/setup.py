@@ -5,9 +5,12 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open("requirements.txt", "r") as fh:
+  requirements = fh.read()
+
 setuptools.setup(
     name='wp_dso_publish',
-    version='0.29',
+    version='0.30',
     packages=[
         'wp_dso_publish'
     ],
@@ -25,9 +28,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=[
-      'PyForms-GUI==4.902',
-      'pycryptodome==3.8.2',
-      'requests==2.22.0',
-    ],
+    install_requires=requirements,
+    setup_requires=requirements,
 )
